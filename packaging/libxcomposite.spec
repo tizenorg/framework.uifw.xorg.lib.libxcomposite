@@ -1,8 +1,8 @@
 
-Name:       libXcomposite
+Name:       libxcomposite
 Summary:    X.Org X11 libXcomposite runtime library
 Version:    0.4.3
-Release:    0
+Release:    2.4
 Group:      System/Libraries
 License:    MIT/X11
 URL:        http://www.x.org
@@ -36,7 +36,7 @@ Development files for libxcomposite
 
 
 %build
-
+export LDFLAGS+=" -Wl,--hash-style=both -Wl,--as-needed"
 %reconfigure --disable-static
 make %{?jobs:-j%jobs}
 
