@@ -7,6 +7,7 @@ Group:      System/Libraries
 License:    MIT/X11
 URL:        http://www.x.org
 Source0:    http://xorg.freedesktop.org/releases/individual/lib/%{name}-%{version}.tar.gz
+Source1001: packaging/libxcomposite.manifest 
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(compositeproto)
@@ -36,6 +37,7 @@ Development files for libxcomposite
 
 
 %build
+cp %{SOURCE1001} .
 export LDFLAGS+=" -Wl,--hash-style=both -Wl,--as-needed"
 %reconfigure --disable-static
 make %{?jobs:-j%jobs}
@@ -56,6 +58,7 @@ rm -rf %{buildroot}
 
 
 %files
+%manifest libxcomposite.manifest
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README ChangeLog
 %{_libdir}/libXcomposite.so.1
@@ -63,6 +66,7 @@ rm -rf %{buildroot}
 
 
 %files devel
+%manifest libxcomposite.manifest
 %defattr(-,root,root,-)
 %dir %{_includedir}/X11
 %dir %{_includedir}/X11/extensions
