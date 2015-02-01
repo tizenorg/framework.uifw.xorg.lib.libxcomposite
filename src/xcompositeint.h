@@ -51,6 +51,9 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/compositeproto.h>
 #include <X11/extensions/Xcomposite.h>
+#ifdef _F_INPUT_REDIRECTION_
+#include <X11/extensions/renderproto.h>
+#endif //_F_INPUT_REDIRECTION_
 
 typedef struct _XCompositeExtDisplayInfo {
     struct _XCompositeExtDisplayInfo  *next;    /* keep a linked list */
@@ -80,5 +83,19 @@ XCompositeFindDisplay (Display *dpy);
 
 #define XCompositeSimpleCheckExtension(dpy,i) \
   if (!XCompositeHasExtension(i)) { return; }
+
+#ifdef _F_INPUT_REDIRECTION_
+/*
+ * Xlib uses long for 32-bit values.  Xcomposite uses int.  This
+ * matters on alpha.  Note that this macro assumes that int is 32 bits
+ * except on WORD64 machines where it is 64 bits.
+ */
+
+#ifdef WORD64
+#define DataInt32(dpy,d,len)   Data32(dpy,(long *) (d),len)
+#else
+#define DataInt32(dpy,d,len)   Data(dpy,(char *) (d),len)
+#endif
+#endif //_F_INPUT_REDIRECTION_
 
 #endif /* _XCOMPOSITEINT_H_ */

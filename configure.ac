@@ -65,7 +65,7 @@ if test "$VERSION" = "" ; then
 fi
 COMPOSITEEXT_VERSION=[`echo $VERSION | sed 's/^\([0-9][0-9]*\.[0-9][0-9]*\).*$/\1/'`]
 AC_SUBST(COMPOSITEEXT_VERSION)
-PKG_CHECK_MODULES(XCOMPOSITE, [compositeproto >= $COMPOSITEEXT_VERSION] x11)
+PKG_CHECK_MODULES(XCOMPOSITE, [compositeproto >= $COMPOSITEEXT_VERSION] x11 xrender renderproto)
 PKG_CHECK_MODULES(XFIXES, xfixes)
 
 AC_OUTPUT([Makefile

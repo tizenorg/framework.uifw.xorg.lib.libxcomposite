@@ -1,6 +1,6 @@
 Summary: X Composite Extension library
 Name: libXcomposite
-Version: 0.4.3
+Version: 0.4.4
 Release: 3
 License: MIT
 Group: System Environment/Libraries
@@ -10,7 +10,8 @@ Source0: %{name}-%{version}.tar.gz
 
 BuildRequires: pkgconfig(compositeproto) >= 0.4
 BuildRequires: pkgconfig(xfixes) pkgconfig(xext)
-BuildRequires:  pkgconfig(xorg-macros)
+BuildRequires: pkgconfig(xorg-macros)
+BuildRequires: pkgconfig(xrender) pkgconfig(renderproto)
 
 %description
 X Composite Extension library
@@ -20,6 +21,8 @@ Summary: Development files for %{name}
 Group: Development/Libraries
 Provides: libxcomposite-devel
 Requires: %{name} = %{version}-%{release}
+Requires: pkgconfig(xrender)
+Requires: pkgconfig(renderproto)
 
 %description devel
 X.Org X11 libXcomposite development package
@@ -28,8 +31,13 @@ X.Org X11 libXcomposite development package
 %setup -q
 
 %build
-%reconfigure --disable-static\
-           LDFLAGS="${LDFLAGS} -Wl,--hash-style=both -Wl,--as-needed"
+%reconfigure --disable-static \
+		LDFLAGS="${LDFLAGS} -Wl,--hash-style=both -Wl,--as-needed" \
+		CFLAGS="${CFLAGS} \
+			-Wall -g \
+			-D_F_INPUT_REDIRECTION_ \
+			"
+
 make %{?jobs:-j%jobs}
 
 %install
