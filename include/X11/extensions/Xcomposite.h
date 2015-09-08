@@ -49,6 +49,10 @@
 #include <X11/extensions/Xfixes.h>
 #include <X11/Xfuncproto.h>
 
+#ifdef _F_INPUT_REDIRECTION_
+#include <X11/extensions/Xrender.h>
+#endif //_F_INPUT_REDIRECTION_
+
 /*
  * This revision number also appears in configure.ac, they have
  * to be manually synchronized
@@ -93,6 +97,13 @@ XCompositeGetOverlayWindow (Display *dpy, Window window);
 
 void
 XCompositeReleaseOverlayWindow (Display *dpy, Window window);
+
+#ifdef _F_INPUT_REDIRECTION_
+void
+XCompositeSetCoordinateTransform (Display *dpy,
+                                  Window window,
+                                  _Xconst XTransform *transform);
+#endif //_F_INPUT_REDIRECTION_
 
 _XFUNCPROTOEND
 
