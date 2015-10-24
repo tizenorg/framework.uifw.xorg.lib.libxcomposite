@@ -124,6 +124,14 @@ XCompositeExtAddDisplay (XCompositeExtInfo	*extinfo,
 	 */
 	LockDisplay (dpy);
 	GetReq (CompositeQueryVersion, req);
+	if (!req)
+	{
+	    UnlockDisplay (dpy);
+	    SyncHandle ();
+	    Xfree(info);
+	    return NULL;
+	}
+
 	req->reqType = info->codes->major_opcode;
 	req->compositeReqType = X_CompositeQueryVersion;
 	req->majorVersion = COMPOSITE_MAJOR;
@@ -256,6 +264,13 @@ XCompositeRedirectWindow (Display *dpy, Window window, int update)
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeRedirectWindow, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeRedirectWindow;
     req->window = window;
@@ -273,6 +288,13 @@ XCompositeRedirectSubwindows (Display *dpy, Window window, int update)
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeRedirectSubwindows, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeRedirectSubwindows;
     req->window = window;
@@ -290,6 +312,13 @@ XCompositeUnredirectWindow (Display *dpy, Window window, int update)
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeUnredirectWindow, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeUnredirectWindow;
     req->window = window;
@@ -307,6 +336,13 @@ XCompositeUnredirectSubwindows (Display *dpy, Window window, int update)
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeUnredirectSubwindows, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeUnredirectSubwindows;
     req->window = window;
@@ -325,6 +361,13 @@ XCompositeCreateRegionFromBorderClip (Display *dpy, Window window)
     XCompositeCheckExtension (dpy, info, 0);
     LockDisplay (dpy);
     GetReq (CompositeCreateRegionFromBorderClip, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return 0;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeCreateRegionFromBorderClip;
     req->window = window;
@@ -344,6 +387,13 @@ XCompositeNameWindowPixmap (Display *dpy, Window window)
     XCompositeCheckExtension (dpy, info, 0);
     LockDisplay (dpy);
     GetReq (CompositeNameWindowPixmap, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return 0;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeNameWindowPixmap;
     req->window = window;
@@ -363,6 +413,13 @@ XCompositeGetOverlayWindow (Display *dpy, Window window)
     XCompositeCheckExtension (dpy, info, 0);
     LockDisplay (dpy);
     GetReq (CompositeGetOverlayWindow, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return 0;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeGetOverlayWindow;
     req->window = window;
@@ -388,6 +445,13 @@ XCompositeReleaseOverlayWindow (Display *dpy, Window window)
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeReleaseOverlayWindow, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeReleaseOverlayWindow;
     req->window = window;
@@ -408,6 +472,13 @@ XCompositeSetCoordinateTransform (Display *dpy,
     XCompositeSimpleCheckExtension (dpy, info);
     LockDisplay (dpy);
     GetReq (CompositeSetCoordinateTransform, req);
+    if (!req)
+    {
+        UnlockDisplay (dpy);
+        SyncHandle ();
+        return;
+    }
+
     req->reqType = info->codes->major_opcode;
     req->compositeReqType = X_CompositeSetCoordinateTransform;
     req->window = window;
